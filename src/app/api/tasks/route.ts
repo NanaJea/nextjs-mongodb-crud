@@ -8,8 +8,16 @@ export async function GET() {
     return NextResponse.json(tasks); 
 }
 
-export function POST() {
-    return NextResponse.json({
-        message: "creando tarea...",
-    })
+export async function POST(request) {
+    try {
+        const data = await request.json()
+        const newTask = new Task(data)
+        const savedTask = await newTask.save()
+        return NextResponse.json(savedTask)
+    } catch (error) {
+
+         return NextResponse.json(error.message, {
+            status: 400
+        })
+    }
 }
