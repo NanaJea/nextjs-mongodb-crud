@@ -10,6 +10,16 @@ function FormPage() {
     const router = useRouter();
     const params = useParams();
 
+    const getTask = async () => {
+        const res = await fetch(`/api/tasks/${params.id}`)
+        const data = await res.json()
+        console.log(data);
+        setNewTask({
+            title: data.title,
+            description: data.description,
+        })
+    };
+
     const createTask = async () => {
         try {
             const res = await fetch('/api/tasks', {
@@ -31,6 +41,25 @@ function FormPage() {
         }
     };
 
+    const updateTask = async () => {
+        try {
+
+        const res = await fetch(`/api/tasks/${params.id}`, {
+            method: "PUT",
+            body: JSON.stringify(newTask),
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+        const data = await res.json();
+        router.push("/");
+        router.refresh();
+        } catch (error) {
+            console.log(error);
+            
+        } 
+    };
+
     const handleDelete = async () => {
         if (
         window.confirm("Are you sure you want to delete this task?")) {
@@ -49,7 +78,12 @@ function FormPage() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        await createTask();
+        if (!params.id) {
+            await createTask();
+        } else {
+            updateTask()
+            
+        }
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -57,7 +91,9 @@ function FormPage() {
     };
 
     useEffect(() => {
-        console.log(params);
+        if (params.id) {
+            getTask()
+        }
     }, []);
 
     return (
@@ -85,6 +121,7 @@ function FormPage() {
                     placeholder="Title"
                     className="bg-gray-800 border-2 w-full p-4 rounded-lg my-4"
                     onChange={handleChange}
+                    value={newTask.title}
                 />
                 <textarea
                     name="description"
@@ -92,11 +129,14 @@ function FormPage() {
                     placeholder="Description"
                     className="bg-gray-800 border-2 w-full p-4 rounded-lg my-4"
                     onChange={handleChange}
-                />
+                    value={newTask.description}
+                ></textarea>
                 <button 
                 type="submit"
                 className="bg-green-600 hover:bg-green-700 text-white font-t px-4 py-2 rounded-lg">
-                    Save
+                {
+                    !params.id ? "Create" : "Update"
+                }
                 </button>
             </form>
         </div>
