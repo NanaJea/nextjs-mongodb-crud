@@ -1,17 +1,26 @@
-import {connectDB} from '@/utils/mongoose'
+// Importieren von Funktionen und Modellen aus den entsprechenden Dateien
+import { connectDB } from '@/utils/mongoose'
 import Task from '@/models/Task'
 import TaskCard from '@/components/TaskCard'
 
+// Funktion zum Laden von Aufgaben aus der Datenbank
 async function loadTasks() {
-    connectDB()
-    const tasks = await Task.find()
-    return tasks 
+    // Verbindung zur Datenbank herstellen
+    connectDB();
+    // Alle Aufgaben aus der Datenbank abrufen
+    const tasks = await Task.find();
+    // Rückgabe der abgerufenen Aufgaben
+    return tasks;
 }
 
+// Funktion für die Startseite, um Aufgaben anzuzeigen
 async function HomePage() {
-    const tasks = await loadTasks()
+    // Aufgaben laden
+    const tasks = await loadTasks();
+    // JSX-Struktur zur Darstellung der Aufgaben
     return (
         <div className='grid grid-cols-3 gap-2'>
+            {/* Durchlaufen der Aufgaben und Erstellung der TaskCard-Komponenten */}
             {tasks.map(task => (
                 <TaskCard task={task} key={task._id}/>
             ))}
@@ -19,4 +28,5 @@ async function HomePage() {
     )
 }
 
-export default HomePage
+// Standardexport der HomePage-Funktion
+export default HomePage;

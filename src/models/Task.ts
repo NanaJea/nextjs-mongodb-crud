@@ -1,19 +1,24 @@
-import {Schema, model, models} from "mongoose"
+// Importiere die benötigten Module von Mongoose
+import { Schema, model, models } from "mongoose";
 
+// Definiere das Schema für die Aufgabe (Task)
 const taskSchema = new Schema({
+    // Titel der Aufgabe
     title: {
-        type: String,
-        required: [true, 'El titulo es requerido'],
-        unique: true,
-        trim: true,
+        type: String, // Datentyp: Zeichenkette (String)
+        required: [true, 'El titulo es requerido'], // Erforderlich mit Fehlermeldung, falls nicht angegeben
+        unique: true, // Eindeutiger Titel (keine Duplikate erlaubt)
+        trim: true, // Leerzeichen am Anfang und Ende des Titels entfernen
     },
+    // Beschreibung der Aufgabe
     description: {
-        type: String,
-        required: [true, 'La description es requerida'],
-        trim: true,
+        type: String, // Datentyp: Zeichenkette (String)
+        required: [true, 'La description es requerida'], // Erforderlich mit Fehlermeldung, falls nicht angegeben
+        trim: true, // Leerzeichen am Anfang und Ende der Beschreibung entfernen
     }
 }, {
-    timestamps: true,
-})
+    timestamps: true, // Automatisches Hinzufügen von createdAt und updatedAt Feldern
+});
 
-export default models.Task || model('Task', taskSchema)
+// Exportiere das Task-Modell aus dem Mongoose-Modul
+export default models.Task || model('Task', taskSchema);

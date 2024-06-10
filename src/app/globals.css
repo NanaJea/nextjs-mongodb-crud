@@ -1,7 +1,14 @@
+/* Aktiviert die Basisstile von Tailwind */
 @tailwind base;
+
+/* Fügt benutzerdefinierte Komponentenstile von Tailwind hinzu */
 @tailwind components;
+
+/* Fügt Hilfsklassen von Tailwind hinzu */
 @tailwind utilities;
 
+/* Definiert globale Stile für den gesamten Körper (body) */
 body {
+    /* Anwendung von Hintergrundfarbe und Textfarbe mithilfe von Tailwind-Hilfsklassen */
     @apply bg-gray-900 text-white;
 }

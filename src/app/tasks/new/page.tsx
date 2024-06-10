@@ -1,8 +1,12 @@
+// Verwendet client-Seitiges Rendering
 "use client";
+// Importieren von benötigten Hooks und Funktionen aus React und Next.js
 import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { useRouter, useParams } from "next/navigation";
 
+// Definiert die Komponente FormPage
 function FormPage() {
+    // Zustandsvariablen für die neue Aufgabe und den Router initialisieren
     const [newTask, setNewTask] = useState({
         title: "",
         description: "",
@@ -10,6 +14,7 @@ function FormPage() {
     const router = useRouter();
     const params = useParams();
 
+    // Funktion zum Abrufen einer Aufgabe anhand der ID
     const getTask = async () => {
         const res = await fetch(`/api/tasks/${params.id}`)
         const data = await res.json()
@@ -20,6 +25,7 @@ function FormPage() {
         })
     };
 
+    // Funktion zum Erstellen einer neuen Aufgabe
     const createTask = async () => {
         try {
             const res = await fetch('/api/tasks', {
@@ -41,6 +47,7 @@ function FormPage() {
         }
     };
 
+    // Funktion zum Aktualisieren einer vorhandenen Aufgabe
     const updateTask = async () => {
         try {
 
@@ -60,6 +67,7 @@ function FormPage() {
         } 
     };
 
+    // Funktion zum Löschen einer Aufgabe
     const handleDelete = async () => {
         if (
         window.confirm("Are you sure you want to delete this task?")) {
@@ -76,6 +84,7 @@ function FormPage() {
     }
     };
 
+    // Funktion zum Bearbeiten des Formulars bei einer Formularübermittlung
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (!params.id) {
@@ -86,16 +95,19 @@ function FormPage() {
         }
     };
 
+    // Funktion zum Aktualisieren des Zustands, wenn ein Eingabefeld geändert wird
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setNewTask({ ...newTask, [e.target.name]: e.target.value });
     };
 
+    // Effekt zum Abrufen der Aufgabe, wenn die Komponente montiert wird
     useEffect(() => {
         if (params.id) {
             getTask()
         }
     }, []);
 
+    // Rückgabe der JSX-Komponente
     return (
         <div className="h-[calc(100vh-7rem)] flex justify-center items-center">
             <form onSubmit={handleSubmit}>
@@ -143,4 +155,5 @@ function FormPage() {
     );
 }
 
+// Standardexport der Komponente
 export default FormPage;
