@@ -15,7 +15,7 @@ function TaskCard({ task }: { task: Task }) {
     // Verlinkung zur Detailansicht des Tasks
     <Link href={`/tasks/${task._id}`}>
       {/* Container für die Task-Karte mit Hover-Effekten */}
-      <div className="bg-gray-50 p-10 text-white rounded-md hover:cursor-pointer hover:bg-gray-700">
+      <div className="bg-gray-600 p-10 text-white rounded-md hover:cursor-pointer hover:bg-blue-700">
         {/* Überschrift mit dem Titel des Tasks */}
         <h3 className="text-2xl font-bold">{task.title}</h3>
         {/* Beschreibung des Tasks */}
