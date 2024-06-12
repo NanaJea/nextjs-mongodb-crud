@@ -5,9 +5,9 @@ import Link from 'next/link';
 function Navbar() {
     return (
         // Navigationsleiste mit grauem Hintergrund und Abstand unten
-        <nav className="bg-gray-950 py-5 mb-2">
+        <nav className="bg-green-700 py-5 mb-2">
             {/* Container für zentrierte und horizontal ausgerichtete Elemente */}
-            <div className='container flex justify-between px-10 md:px-0 mx-auto'>
+            <div className='container flex justify-between px-10 md:px-5 mx-auto'>
                 {/* Link zur Startseite mit dem Titel "Next Mongo" */}
                 <Link href="/">
                     <h1 className='text-2xl font-bold'>
